@@ -1273,7 +1273,7 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@nutui/nutui-taro@^3.1.8":
+"@nutui/nutui-taro@^3.1.20":
   version "3.1.20"
   resolved "https://registry.yarnpkg.com/@nutui/nutui-taro/-/nutui-taro-3.1.20.tgz#bce7283f0824c9f0bff81220dc4546096937d6f8"
   integrity sha512-ZQHBXYNrX/X7vTgU2X6GKv9FkfBnsmEvqLRX0IqxpxcksjjNsy9hbcx6XFl4MvYNkPE9/z1oN3Xge1N4fylxww==

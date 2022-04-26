@@ -21,7 +21,7 @@ const config = {
   },
   framework: 'vue3',
   sass:{
-    data: `@import "@nutui/nutui-taro/dist/styles/variables.scss";`
+    data: '@import "@nutui/nutui-taro/dist/styles/variables.scss";'
   },
   mini: {
     postcss: {
@@ -65,12 +65,12 @@ const config = {
       }
     }
   }
-}
+};
 
 module.exports = function (merge) {
-  console.log(process.env)
+  console.log(process.env);
   if (process.env.NODE_ENV === 'development') {
-    return merge({}, config, require('./dev'))
+    return merge({}, config, require('./dev'));
   }
-  return merge({}, config, require('./prod'))
-}
+  return merge({}, config, require('./prod'));
+};
