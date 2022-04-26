@@ -3,6 +3,8 @@ import { View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { defineComponent } from 'vue';
 
+import './style.scss';
+
 const cardProps = {
   title: String,
   extra: String,
@@ -17,7 +19,7 @@ export default defineComponent({
 
   setup (props) {
     function handleOnClick (_: MouseEvent) {
-      Taro.redirectTo({
+      Taro.navigateTo({
         url: props.url as string
       });
     }
@@ -36,7 +38,7 @@ export default defineComponent({
     } = this;
 
     return (
-      <Cell onClick={handleOnClick}>
+      <Cell class='card' onClick={handleOnClick}>
         <View class='d-flex flex-row justify-content-between card-container'>
           <View class='d-flex flex-column'>
             <View class='card-title'>{title}</View>

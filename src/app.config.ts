@@ -36,5 +36,10 @@ export default defineAppConfig({
       version: '1.0.9',
       provider: 'wx76a9a06e5b4e693e'
     },
+  },
+  permission: {
+    'scope.userLocation': {
+      desc: '你的位置信息将用于小程序位置接口的效果展示'
+    }
   }
 });

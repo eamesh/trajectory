@@ -13,8 +13,8 @@ export default defineComponent({
 
   render () {
     return (
-      <View class='page home'>
-        <View class='pb-2'>生活服务</View>
+      <View class='page page-home'>
+        <View class='pb-2'>功能</View>
         <Row gutter='10'>
           <Col span='12'>
             <Card title='附近确诊' extra='快速查询疫情分布' icon={Map} url='/pages/funcs/map/index' />

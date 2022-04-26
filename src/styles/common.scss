@@ -10,3 +10,11 @@ page {
   position: relative;
   background-color: transparent;
 }
+
+.text-wrap {
+  font-size: 12px;
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

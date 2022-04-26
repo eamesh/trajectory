@@ -1,0 +1,20 @@
+// .card {
+//   padding: 10px 12px;
+// }
+
+.card-container {
+  width: 100%;
+  min-height: 30px;
+
+  .card-title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .card-extra {
+    margin-top: 6px;
+    font-size: 10px;
+    color: #989898;
+  }
+}

@@ -1,0 +1,63 @@
+.page-map {
+  // .map,
+  // &__container {
+  //   width: 100%;
+  //   flex: 1;
+  // }
+  position: relative;
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+  }
+
+  .map {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  &__container {
+    position: sticky;
+    background-color: #fff;
+    z-index: 10;
+
+    &-header {
+      background-color: #fff;
+    }
+
+    &-info {
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+    }
+
+    &-info,
+    &-header {
+      flex-shrink: 0;
+    }
+
+    &-scroll {
+      height: 1px;
+      flex: 1;
+      box-sizing: border-box;
+      background-color: #eee;
+    }
+  }
+
+  .location {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    background-color: #2f68d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+}
