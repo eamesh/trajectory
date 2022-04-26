@@ -6,7 +6,7 @@ export default defineComponent({
 
   render () {
     return (
-      <View class='page'>
+      <View class='page me'>
         me
       </View>
     );

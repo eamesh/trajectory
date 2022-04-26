@@ -1,3 +1,5 @@
+import path from 'path';
+
 const config = {
   projectName: 'trajectory',
   date: '2022-4-26',
@@ -64,6 +66,9 @@ const config = {
         }
       }
     }
+  },
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src'),
   }
 };
 
