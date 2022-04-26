@@ -28,6 +28,7 @@ module.exports = {
       'selector-type-no-unknown': null,
       'no-duplicate-selectors': null,
       'no-empty-source':null,
+      'scss/comment-no-empty': null,
       'selector-pseudo-class-no-unknown': [
         true,
         {
