@@ -24,7 +24,9 @@
     "dev:h5": "npm run build:h5 -- --watch",
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
-    "dev:quickapp": "npm run build:quickapp -- --watch"
+    "dev:quickapp": "npm run build:quickapp -- --watch",
+    "lint:eslint": "eslint \"src/**/*.{vue,js,ts,tsx}\" --fix",
+    "lint:stylelint": "stylelint --fix \"src/**/*.{vue,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/"
   },
   "browserslist": [
     "last 3 versions",
@@ -35,30 +37,37 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
+    "@nutui/nutui-taro": "^3.1.8",
+    "@tarojs/components": "3.4.7",
+    "@tarojs/plugin-framework-vue3": "3.4.7",
+    "@tarojs/plugin-html": "3.4.7",
     "@tarojs/runtime": "3.4.7",
     "@tarojs/taro": "3.4.7",
-    "@tarojs/components": "3.4.7",
-    "@tarojs/plugin-html": "3.4.7",
-    "@tarojs/plugin-framework-vue3": "3.4.7",
-    "vue": "^3.0.0",
-    "@nutui/nutui-taro": "^3.1.8"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@types/webpack-env": "^1.13.6",
-    "@tarojs/mini-runner": "3.4.7",
-    "@tarojs/webpack-runner": "3.4.7",
     "@babel/core": "^7.8.0",
     "@tarojs/cli": "3.4.7",
-    "babel-preset-taro": "3.4.7",
-    "babel-plugin-import": "^1.13.3",
-    "@vue/compiler-sfc": "^3.0.0",
-    "vue-loader": "^16.0.0-beta.8",
-    "eslint-plugin-vue": "^8.0.0",
-    "eslint-config-taro": "3.4.7",
-    "eslint": "^8.12.0",
-    "stylelint": "9.3.0",
-    "@typescript-eslint/parser": "^5.20.0",
+    "@tarojs/mini-runner": "3.4.7",
+    "@tarojs/webpack-runner": "3.4.7",
+    "@types/webpack-env": "^1.13.6",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
-    "typescript": "^3.7.0"
+    "@typescript-eslint/parser": "^5.20.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "babel-plugin-import": "^1.13.3",
+    "babel-preset-taro": "3.4.7",
+    "eslint": "^8.14.0",
+    "eslint-config-taro": "3.4.7",
+    "eslint-plugin-vue": "^8.0.0",
+    "postcss": "^8.4.12",
+    "postcss-html": "^1.4.1",
+    "sass": "^1.51.0",
+    "stylelint": "^14.7.1",
+    "stylelint-config-recommended-vue": "^1.4.0",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-order": "^5.0.0",
+    "typescript": "^3.7.0",
+    "vue-loader": "^16.0.0-beta.8"
   }
 }
