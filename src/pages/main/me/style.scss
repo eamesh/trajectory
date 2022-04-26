@@ -1,0 +1,18 @@
+.page-me {
+  .avatar {
+    &-name {
+      color: #333;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &-text {
+      font-size: 10px;
+    }
+  }
+
+  .cell-text {
+    font-size: 14px;
+    color: #333;
+  }
+}
