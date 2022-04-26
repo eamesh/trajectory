@@ -2,7 +2,9 @@ export default defineAppConfig({
   pages: [
     'pages/main/index/index',
     'pages/main/me/index',
-    'pages/funcs/map/index'
+    'pages/funcs/map/index',
+    'pages/funcs/community/index',
+    'pages/funcs/day/index'
   ],
   window: {
     backgroundColor: '#f1f1f1',
