@@ -1,5 +1,5 @@
 /* eslint-disable vue/no-async-in-computed-properties */
-import { Col, Row, InputNumber, Cell } from '@nutui/nutui-taro';
+import { InputNumber } from '@nutui/nutui-taro';
 import { Map, View, ScrollView } from '@tarojs/components';
 import Taro, {  requirePlugin} from '@tarojs/taro';
 import { defineComponent, ref, onMounted, computed, nextTick } from 'vue';
@@ -205,19 +205,19 @@ export default defineComponent({
           scale='16'
         ></Map>
         <View class='d-flex flex-column page-map__container' style={containerHeight}>
-          <Row gutter={12} class='pb-2 pt-3 page-map__container-header'>
-            <Col span={12}>
+          <nut-row gutter={12} class='pb-2 pt-3 page-map__container-header'>
+            <nut-col span={12}>
               <View class='d-flex justify-content-center align-items-center'>
                 <nut-button size="mini" type="info" onClick={handleSetLocation}>设置位置</nut-button>
               </View>
-            </Col>
-            <Col span={12}>
+            </nut-col>
+            <nut-col span={12}>
               <View class='d-flex justify-content-center align-items-center'>
                 <InputNumber v-model={modelData.range} />
                 <View class='ms-1 text-wrap'>公里</View>
               </View>
-            </Col>
-          </Row>
+            </nut-col>
+          </nut-row>
           <View class='px-3 pt-1 pb-2 page-map__container-info'>
             截止到4月26日，2公里范围内，共报道病例居住地0处，最近的病例居住地距此越0米
           </View>
@@ -225,13 +225,13 @@ export default defineComponent({
             height: `${scrollHeight}px`
           }}>
             <View class='safe-area-inset-bottom px-2'>
-              <Cell title='测试' subTitle='描述' desc='约2km'></Cell>
-              <Cell title='测试' subTitle='描述' desc='约2km'></Cell>
-              <Cell title='测试' subTitle='描述' desc='约2km'></Cell>
-              <Cell title='测试' subTitle='描述' desc='约2km'></Cell>
-              <Cell title='测试' subTitle='描述' desc='约2km'></Cell>
-              <Cell title='测试' subTitle='描述' desc='约2km'></Cell>
-              <Cell title='测试1' subTitle='描述' desc='约2km'></Cell>
+              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
+              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
+              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
+              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
+              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
+              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
+              <nut-cell title='测试1' subTitle='描述' desc='约2km'></nut-cell>
             </View>
           </ScrollView>
         </View>

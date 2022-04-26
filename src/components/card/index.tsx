@@ -1,4 +1,4 @@
-import { Cell, Icon } from '@nutui/nutui-taro';
+import { getUserProfile } from '@/utils';
 import { View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { defineComponent } from 'vue';
@@ -19,8 +19,10 @@ export default defineComponent({
 
   setup (props) {
     function handleOnClick (_: MouseEvent) {
-      Taro.navigateTo({
-        url: props.url as string
+      getUserProfile().then(() => {
+        Taro.navigateTo({
+          url: props.url as string
+        });
       });
     }
 
@@ -38,17 +40,17 @@ export default defineComponent({
     } = this;
 
     return (
-      <Cell class='card' onClick={handleOnClick}>
+      <nut-cell class='card' onClick={handleOnClick}>
         <View class='d-flex flex-row justify-content-between card-container'>
           <View class='d-flex flex-column'>
             <View class='card-title'>{title}</View>
             <View class='card-extra'>{extra}</View>
           </View>
           <View>
-            <Icon name={icon} />
+            <nut-icon name={icon} />
           </View>
         </View>
-      </Cell>
+      </nut-cell>
     );
   }
 });
