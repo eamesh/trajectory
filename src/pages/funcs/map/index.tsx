@@ -1,157 +1,171 @@
 /* eslint-disable vue/no-async-in-computed-properties */
-import { InputNumber } from '@nutui/nutui-taro';
-import { Map, View, ScrollView } from '@tarojs/components';
-import Taro, {  requirePlugin} from '@tarojs/taro';
-import { defineComponent, ref, onMounted, computed, nextTick } from 'vue';
+import { Empty, InputNumber, Skeleton } from '@nutui/nutui-taro';
+import { Map, View, ScrollView, Text } from '@tarojs/components';
+import Taro, { requirePlugin } from '@tarojs/taro';
+import { computed, defineComponent, ref, watch } from 'vue';
+import { useMap } from './map';
+import { useData } from './data';
+import Marker from '@/assets/images/marker.png';
+// import Self from '@/assets/images/self.png';
+import dayjs from 'dayjs';
 
 import './style.scss';
 
 const chooseLocation = requirePlugin('chooseLocation');
 
-const MAP_KEY = 'B5KBZ-YXBE6-ZFVS6-E7BJA-MNVI7-6EFU2';
-const REFER = '附近确诊轨迹';
-
 export default defineComponent({
   name: 'Map',
 
   setup () {
-    const mapRef = ref<any>({});
-    const mapDataRef = ref({
-      latitude: 36.670931,
-      longitude: 116.990884,
-      markers: [{
-        id: 1,
-        latitude: 36.670931,
-        longitude: 116.990884,
-        // width: Taro.pxTransform(20),
-        // height: Taro.pxTransform(30),
-      }]
-    });
-
-    const modelData = ref({
-      range: 2
-    });
-
-    const containerInfo = ref();
-
-    const mapStyle = computed(() => {
-      const {
-        windowHeight
-      } = Taro.getSystemInfoSync();
-
-      return {
-        height: `${windowHeight * 0.3}px`,
-      };
-    });
-
-    const containerHeight = computed(() => {
-      const {
-        windowHeight
-      } = Taro.getSystemInfoSync();
-
-      return {
-        height: `${windowHeight * 0.7}px`
-      };
-    });
-
-    function handleGetDomRect (id): Promise<any> {
-      return new Promise((resolve) => {
-        Taro.createSelectorQuery().select(id)
-          .boundingClientRect()
-          .exec(res => resolve(res));
-      });
-    }
-
-    const scrollHeight = computed(async () => {
-      const {
-        windowHeight
-      } = Taro.getSystemInfoSync();
-      const { height: infoHeight } = await handleGetDomRect('#container-info');
-      const { height: headerHeight } = await handleGetDomRect('#container-header');
-
-      return (windowHeight * 0.5) - (infoHeight + headerHeight);
-    });
-
-    // 需要滚动的最大距离
-    const totalScrollRange = computed(() => {
-      const {
-        windowHeight
-      } = Taro.getSystemInfoSync();
-
-      return windowHeight * 0.7 - (windowHeight / 2);
-    });
-
-    onMounted(async () => {
-      mapRef.value = Taro.createMapContext('map');
-    });
-
-    nextTick(async () => {
-      const { height: infoHeight } = await handleGetDomRect('#container-info');
-        const { height: headerHeight } = await handleGetDomRect('#container-header');
-
-        console.log(infoHeight, headerHeight);
-    });
-
-    function handleSetLocation () {
-      Taro.navigateTo({
-        url: `plugin://chooseLocation/index?key=${MAP_KEY}&referer=${REFER}&location=${JSON.stringify({
-          latitude: 36.670931,
-          longitude: 116.990884,
-        })}`
-      });
-    }
-
-    function handleLocation (): Promise<any> {
-      return new Promise((resolve, reject) => {
-        Taro.getLocation({
-          type: 'wgs84',
-          success: (res) => {
-            console.log(res);
-            resolve(res);
-          },
-
-          fail: (error) => {
-            reject(error);
-          }
-        });
-      });
-    }
-
-    async function handleGetLocation () {
-      Taro.showLoading();
-      try {
-        const res = await handleLocation();
-
-        mapDataRef.value = {
-          latitude: res.latitude,
-          longitude: res.longitude,
-          markers: [{
-            id: 1,
-            latitude: res.latitude,
-            longitude: res.longitude,
-            // width: Taro.pxTransform(20),
-            // height: Taro.pxTransform(30),
-          }]
-        };
-      } catch (error) {
-        console.log(error);
-      }
-      Taro.hideLoading();
-    }
-
-    handleGetLocation();
-
-    return {
-      mapData: mapDataRef,
-      modelData,
+    const {
+      mapRef,
+      markersRef,
+      toastData,
+      locationDataRef,
       mapStyle,
       containerHeight,
       totalScrollRange,
       handleSetLocation,
       handleGetLocation,
       containerInfo,
-      scrollHeight,
-      handleGetDomRect
+    } = useMap();
+
+    const {
+      loading,
+      nearDiagnosisRef,
+      handleGetPositionDiagnosis
+    } = useData();
+
+    const currentMarkerId = ref();
+
+    handleGetLocation();
+
+    function handleSetMarkers () {
+      const marker = {
+        iconPath: Marker,
+        width: 24,
+        height: 24,
+        joinCluster: false,
+        callout: {
+          padding: '10rpx 28rpx',
+          borderRadius: 4,
+          display: 'BYCLICK'
+        }
+        // label:{
+        //   borderWidth: 1,
+        //   borderRadius: 10,
+        //   bgColor: '#ffffff',
+        //   content: '',
+        //   borderColor: '#ffffff',
+        //   padding: '10rpx 20rpx',
+        // }
+      };
+      const points: any[] = [];
+      nearDiagnosisRef.value.map((item, index) => {
+        console.log(item);
+        const newMarker = Object.assign({
+          ...marker
+        }, {
+          id: index,
+          index,
+          latitude: item.location.coordinates[1],
+          longitude: item.location.coordinates[0],
+          zIndex: 1,
+          title: item.address,
+          callout: {
+            ...marker.callout,
+            content: item.address,
+            display: currentMarkerId.value === index ? 'ALWAYS' : 'BYCLICK'
+          }
+          // label: {
+          //   ...marker.label,
+          //   content: item.address
+          // }
+        });
+        // newMarker.label.content = item.address;
+        console.log(newMarker);
+        points.push(newMarker);
+      });
+      console.log(points);
+
+      // points.push({
+      //   id: points.length,
+      //   ...locationDataRef.value,
+      //   iconPath: Self,
+      //   width: 24,
+      //   height: 24,
+      //   // joinCluster: true
+      // });
+
+      console.log(mapRef.value);
+      markersRef.value = points;
+      // mapRef.value.addMarkers({
+      //   clear: true,
+      //   markers: points
+      // });
+    }
+
+    watch(
+      () => locationDataRef.value,
+      () => {
+        console.log('update location');
+        handleGetPositionDiagnosis(locationDataRef.value);
+      },
+      {
+        deep: true
+      }
+    );
+
+    watch(
+      () => nearDiagnosisRef.value,
+      () => {
+        handleSetMarkers();
+      }
+    );
+
+    const mapCircle = computed(() => {
+      return [
+        {
+          latitude: locationDataRef.value.latitude,
+          longitude: locationDataRef.value.longitude,
+          color: '#AACCEE',
+          fillColor: '#AACCEE32',
+          radius: locationDataRef.value.range * 1000,
+        }
+      ];
+    });
+
+    function handleClickMarker (e, item, index) {
+      console.log(e, mapRef.value, item, index);
+      currentMarkerId.value = index;
+      // locationDataRef.value = {
+      //   ...locationDataRef.value,
+      //   latitude: item.location.coordinates[1],
+      //   longitude: item.location.coordinates[0],
+      // };
+
+      mapRef.value.moveToLocation({
+        latitude: item.location.coordinates[1],
+        longitude: item.location.coordinates[0],
+      });
+
+      handleSetMarkers();
+    }
+
+    return {
+      loading,
+      markers: markersRef,
+      toastData,
+      lodationData: locationDataRef,
+      mapStyle,
+      containerHeight,
+      totalScrollRange,
+      handleSetLocation,
+      handleGetLocation,
+      containerInfo,
+      nearDiagnosis: nearDiagnosisRef,
+      handleClickMarker,
+      mapCircle
     };
   },
 
@@ -161,35 +175,41 @@ export default defineComponent({
 
     if (!location) return;
     console.log(location);
-    this.mapData = {
+    this.lodationData = {
+      ...this.lodationData,
       latitude: location.latitude,
       longitude: location.longitude,
-      markers: [{
-        id: 1,
-        latitude: location.latitude,
-        longitude: location.longitude,
-        name: location.name,
-        // width: Taro.pxTransform(20),
-        // height: Taro.pxTransform(30),
-      }]
+      // markers: [{
+      //   id: 1,
+      //   latitude: location.latitude,
+      //   longitude: location.longitude,
+      //   name: location.name,
+      //   // width: Taro.pxTransform(20),
+      //   // height: Taro.pxTransform(30),
+      // }]
     };
 
-    console.log(this.mapData);
+    console.log(this.lodationData);
   },
 
   render () {
     const {
-      mapData,
-      modelData,
+      loading,
+      markers,
+      toastData,
+      lodationData,
       mapStyle,
       containerHeight,
       handleSetLocation,
       handleGetLocation,
-      scrollHeight
+      nearDiagnosis,
+      handleClickMarker,
+      mapCircle
     } = this;
 
     return (
       <View class='page page-map'>
+        <nut-toast msg={toastData.msg} v-model:visible={toastData.show} type={toastData.type}  cover={toastData.cover} />
         <View class='location'>
           <nut-icon onClick={handleGetLocation} color='#fff' class='location' name='location2' />
         </View>
@@ -197,41 +217,55 @@ export default defineComponent({
           id='map'
           class='map'
           showLocation
-          latitude={mapData.latitude}
-          longitude={mapData.longitude}
-          markers={mapData.markers}
-          covers={mapData.covers}
+          latitude={lodationData.latitude}
+          longitude={lodationData.longitude}
+          markers={markers}
           style={mapStyle}
-          scale='16'
+          scale='13'
+          // onMarkertap={handleClickMarker}
+          circles={mapCircle}
         ></Map>
         <View class='d-flex flex-column page-map__container' style={containerHeight}>
-          <nut-row gutter={12} class='pb-2 pt-3 page-map__container-header'>
+          <nut-row gutter={12} class='py-3 page-map__container-header'>
             <nut-col span={12}>
               <View class='d-flex justify-content-center align-items-center'>
-                <nut-button size="mini" type="info" onClick={handleSetLocation}>设置位置</nut-button>
+                <nut-button size='small' type='info' onClick={handleSetLocation}>设置位置</nut-button>
               </View>
             </nut-col>
             <nut-col span={12}>
               <View class='d-flex justify-content-center align-items-center'>
-                <InputNumber v-model={modelData.range} />
+                <InputNumber v-model={lodationData.range} />
                 <View class='ms-1 text-wrap'>公里</View>
               </View>
             </nut-col>
           </nut-row>
-          <View class='px-3 pt-1 pb-2 page-map__container-info'>
-            截止到4月26日，2公里范围内，共报道病例居住地0处，最近的病例居住地距此越0米
-          </View>
-          <ScrollView scrollY class='page-map__container-scroll' style={{
-            height: `${scrollHeight}px`
-          }}>
+          {
+            nearDiagnosis.length ? (
+              <View class='px-3 pt-1 pb-3 page-map__container-info'>
+                截止到{dayjs().format('MM月DD日')}，<Text class='count-text me-2'>{lodationData.range}</Text>公里范围内，共报道病例居住地<Text class='count-text mx-2'>{nearDiagnosis.length}</Text>处，最近的病例居住地距此约<Text class='count-text'>{(nearDiagnosis[0].distance / 6378137).toFixed()}</Text>米
+              </View>
+            ) : null
+          }
+          <ScrollView scrollY class='page-map__container-scroll'>
             <View class='safe-area-inset-bottom px-2'>
-              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
-              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
-              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
-              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
-              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
-              <nut-cell title='测试' subTitle='描述' desc='约2km'></nut-cell>
-              <nut-cell title='测试1' subTitle='描述' desc='约2km'></nut-cell>
+              {
+                loading ? (
+                  <View class='d-flex flex-column align-items-center' style={{
+                    marginTop: Taro.pxTransform(50)
+                  }}>
+                    <nut-icon name="loading1" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
+                    <View class='text-wrap mt-2'>加载中</View>
+                  </View>
+                ) : <>
+                  {
+                    nearDiagnosis.length ? nearDiagnosis.map((item, index) => {
+                      return (
+                        <nut-cell title={item.address} subTitle={item.date} desc={`${((item.distance / 6378137) / 1000).toFixed(2)}km`} onClick={(e) => handleClickMarker(e, item, index)}></nut-cell>
+                      );
+                    }) : <Empty />
+                  }
+                </>
+              }
             </View>
           </ScrollView>
         </View>
