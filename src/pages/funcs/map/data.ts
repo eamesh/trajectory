@@ -11,12 +11,12 @@ export const useData = () => {
   const nearDiagnosisRef = ref<any[]>([]);
   const loading = ref(true);
 
-  function handleGetPositionDiagnosis (locationData: LocationSchema) {
+  function handleGetPositionTrajectory (locationData: LocationSchema) {
     return new Promise(async (resolve, reject) => {
       loading.value = true;
       try {
         const res = await Taro.cloud.callFunction({
-          name: 'diagnosis',
+          name: 'trajectory',
           data: locationData,
         }) as any;
 
@@ -34,6 +34,6 @@ export const useData = () => {
   return {
     loading,
     nearDiagnosisRef,
-    handleGetPositionDiagnosis
+    handleGetPositionTrajectory
   };
 };

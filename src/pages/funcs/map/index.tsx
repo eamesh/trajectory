@@ -33,7 +33,7 @@ export default defineComponent({
     const {
       loading,
       nearDiagnosisRef,
-      handleGetPositionDiagnosis
+      handleGetPositionTrajectory
     } = useData();
 
     const currentMarkerId = ref();
@@ -109,7 +109,7 @@ export default defineComponent({
       () => locationDataRef.value,
       () => {
         console.log('update location');
-        handleGetPositionDiagnosis(locationDataRef.value);
+        handleGetPositionTrajectory(locationDataRef.value);
       },
       {
         deep: true
@@ -129,7 +129,7 @@ export default defineComponent({
           latitude: locationDataRef.value.latitude,
           longitude: locationDataRef.value.longitude,
           color: '#AACCEE',
-          fillColor: '#AACCEE32',
+          fillColor: '#AACCEE90',
           radius: locationDataRef.value.range * 1000,
         }
       ];
@@ -234,7 +234,7 @@ export default defineComponent({
             </nut-col>
             <nut-col span={12}>
               <View class='d-flex justify-content-center align-items-center'>
-                <InputNumber v-model={lodationData.range} />
+                <InputNumber v-model={lodationData.range} buttonSize={30} inputWidth={50}  />
                 <View class='ms-1 text-wrap'>公里</View>
               </View>
             </nut-col>
