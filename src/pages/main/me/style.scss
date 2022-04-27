@@ -16,3 +16,23 @@
     color: #333;
   }
 }
+
+.contact {
+  position: relative;
+
+  .contact-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    opacity: 0;
+  }
+}
+
+.avatar-opendata {
+  width: 40px;
+  height: 40px;
+}
