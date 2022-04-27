@@ -2,7 +2,7 @@ import { defineComponent } from 'vue';
 import { View } from '@tarojs/components';
 import Map from '@/assets/images/map.png';
 import Search from '@/assets/images/search.png';
-import Browser from '@/assets/images/browser.png';
+// import Browser from '@/assets/images/browser.png';
 import Card from '@/components/card';
 
 import './style.scss';
@@ -23,12 +23,12 @@ export default defineComponent({
             <Card title='小区查询' extra='查询你的小区情况' icon={Search} url='/pages/funcs/community/index' />
           </nut-col>
         </nut-row>
-        <nut-row gutter='10'>
+        {/* <nut-row gutter='10'>
           <nut-col span='12'>
             <Card title='每日通报' extra='每日最新情况' icon={Browser} url='/pages/funcs/day/index' />
           </nut-col>
           <nut-col span='12'></nut-col>
-        </nut-row>
+        </nut-row> */}
 
       </View>
     );

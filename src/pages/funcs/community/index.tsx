@@ -1,6 +1,8 @@
 import { SearchBar, NoticeBar, Empty, Table, Cell } from '@nutui/nutui-taro';
-import { View } from '@tarojs/components';
-import { defineComponent, ref } from 'vue';
+import { Text, View } from '@tarojs/components';
+import Taro from '@tarojs/taro';
+import dayjs from 'dayjs';
+import { defineComponent, h, ref } from 'vue';
 
 export default defineComponent({
   name: 'Community',
@@ -11,7 +13,7 @@ export default defineComponent({
     const columns = [
       {
         title: '行政区',
-        key: 'name'
+        key: 'area'
       },
       {
         title: '地址',
@@ -19,39 +21,63 @@ export default defineComponent({
       },
       {
         title: '通报时间',
-        key: 'date'
+        key: 'date',
+        render (row: any) {
+          return h(View, {}, dayjs(row.date as string).format('YYYY/MM/DD'));
+        }
       },
     ];
 
-    const listData = ref([
-      {
-        name: '测试',
-        address: '济南市市中区xxxx',
-        date: '4月21日'
-      },
-    ]);
+    const listData = ref([]);
+    const loading = ref(false);
+
+    async function handleSearch () {
+      loading.value = true;
+      try {
+        const {
+          result: data
+        } = await Taro.cloud.callFunction({
+          name: 'community',
+          data: {
+            keyword: searchValue.value
+          },
+        }) as any;
+
+        console.log(data);
+        listData.value = data.list;
+      } catch (error) {
+        console.log(error);
+      }
+      loading.value = false;
+    }
 
     return {
+      loading,
       searchValue,
       columns,
-      listData
+      listData,
+      handleSearch
     };
   },
 
   render () {
     const {
+      loading,
       columns,
-      listData
+      listData,
+      handleSearch
     } = this;
 
     return (
-      <View class='page'>
-        <SearchBar {...{
+      <View class='page' style={{
+        overflowY: 'auto'
+      }}>
+        <SearchBar onSearch={handleSearch} placeholder='请输入小区名' {...{
           autofocus: true
         }} v-model={this.searchValue}>
           {{
             rightout: () => {
-              return '搜索';
+              return <View onClick={handleSearch}>搜索</View>;
             }
           }}
         </SearchBar>
@@ -65,14 +91,28 @@ export default defineComponent({
           </View>
         </NoticeBar>
 
-        <Empty description="无数据"></Empty>
+        {
+          loading ? (
+            <View class='d-flex flex-column align-items-center' style={{
+              marginTop: Taro.pxTransform(50)
+            }}>
+              <nut-icon name="loading1" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
+              <View class='text-wrap mt-2'>加载中</View>
+            </View>
+          ) : (
+            listData.length ? (
+              <View class='px-3'>
+                <Cell class='d-flex flex-column'>
+                  <View class='mb-2 text-wrap'>共<Text>{listData.length}</Text>条</View>
+                  <Table columns={columns} data={listData}></Table>
+                </Cell>
+              </View>
+            ) : (
+              <Empty description="无数据"></Empty>
+            )
+          )
+        }
 
-        <View class='px-3'>
-          <Cell class='d-flex flex-column'>
-            <View class='mb-2 text-wrap'>共2条</View>
-            <Table columns={columns} data={listData}></Table>
-          </Cell>
-        </View>
       </View>
     );
   }

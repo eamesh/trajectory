@@ -46,12 +46,15 @@ export default defineComponent({
     return (
       <View class='page px-2'>
         <Cell>
-          <View class='d-flex flex-column'>
+          <View class='d-flex flex-column' style={{
+            width: '100%'
+          }}>
             <View class='day-title mb-2'>济南市每日病例情况</View>
-            <View class='text-wrap mb-2'>自2022年4月21日起，济南市累计通报新冠病例<Text class='count-text'>xxx</Text>例，其中确诊病例<Text class='count-text'>xxx</Text>例，无症状感染者<Text class='count-text'>xxx</Text>例</View>
+            <View class='text-wrap mb-2'>
+              数据采集自2022年4月16日起，济南市累计通报新冠病例<Text class='count-text'>xxx</Text>例，其中确诊病例<Text class='count-text'>xxx</Text>例，无症状感染者<Text class='count-text'>xxx</Text>例
+            </View>
             <Table columns={columns} data={listData}></Table>
           </View>
-
         </Cell>
       </View>
     );
