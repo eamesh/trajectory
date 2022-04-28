@@ -17,7 +17,7 @@ export default defineComponent({
         <View class='pb-2'>功能</View>
         <nut-row gutter='10'>
           <nut-col span='12'>
-            <Card title='附近确诊' extra='快速查询疫情分布' icon={Map} url='/pages/funcs/map/index' />
+            <Card title='历史轨迹' extra='快速查询疫情分布' icon={Map} url='/pages/funcs/map/index' />
           </nut-col>
           <nut-col span='12'>
             <Card title='小区查询' extra='查询你的小区情况' icon={Search} url='/pages/funcs/community/index' />

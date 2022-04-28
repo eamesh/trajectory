@@ -1,10 +1,26 @@
 import { createApp } from 'vue';
 import { Button, Toast, Icon, Row, Col, Cell } from '@nutui/nutui-taro';
-
-import './app.scss';
 import Taro from '@tarojs/taro';
 
+import './app.scss';
+
 const App = createApp({
+  onLaunch () {
+    const updateManager = Taro.getUpdateManager();
+
+    updateManager.onUpdateReady(() => {
+      Taro.showModal({
+        title: '更新提示',
+        content: '新版本已准备好，是否重启应用?',
+        success (res) {
+          if (res.confirm) {
+            updateManager.applyUpdate();
+          }
+        }
+      });
+    });
+  },
+
   onShow (options) {
     Taro.cloud.init();
   },

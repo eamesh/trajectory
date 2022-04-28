@@ -1,5 +1,5 @@
 export default definePageConfig({
-  navigationBarTitleText: '附近确诊',
+  navigationBarTitleText: '历史轨迹',
   disableScroll: true,
   enableShareTimeline: true,
   enableShareAppMessage: true
