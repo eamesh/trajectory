@@ -250,7 +250,7 @@ export default defineComponent({
                   {
                     nearDiagnosis.length ? nearDiagnosis.map((item, index) => {
                       return (
-                        <nut-cell title={item.address} subTitle={item.date} desc={`${((item.distance / 6378137) / 1000).toFixed(2)}km`} onClick={(e) => handleClickMarker(e, item, index)}></nut-cell>
+                        <nut-cell title={item.address} subTitle={dayjs(item.date).format('YYYY-MM-DD HH:mm:ss')} desc={`${((item.distance / 6378137) / 1000).toFixed(2)}km`} onClick={(e) => handleClickMarker(e, item, index)}></nut-cell>
                       );
                     }) : <Empty />
                   }
