@@ -23,7 +23,7 @@ export default defineComponent({
         title: '通报时间',
         key: 'date',
         render (row: any) {
-          return h(View, {}, dayjs(row.date as string).format('YYYY/MM/DD'));
+          return h(View, {}, dayjs(row.date as string).format('YYYY-MM-DD'));
         }
       },
     ];
