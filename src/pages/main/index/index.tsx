@@ -11,6 +11,20 @@ import Taro from '@tarojs/taro';
 export default defineComponent({
   name: 'Index',
 
+  onShareAppMessage () {
+    return {
+      title: '附近确诊轨迹',
+      path: '/pages/main/index/index'
+    };
+  },
+
+  onShareTimeline () {
+    return {
+      title: '附近确诊轨迹',
+      path: '/pages/main/index/index'
+    };
+  },
+
   render () {
     return (
       <View class='page page-home'>

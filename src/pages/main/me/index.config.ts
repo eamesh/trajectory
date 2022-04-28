@@ -1,4 +1,5 @@
 export default definePageConfig({
   navigationBarTitleText: '我的',
-  enableShareTimeline: true
+  enableShareTimeline: true,
+  enableShareAppMessage: true
 });

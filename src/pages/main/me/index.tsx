@@ -32,6 +32,20 @@ export default defineComponent({
     this.handleGetUser();
   },
 
+  onShareAppMessage () {
+    return {
+      title: '附近确诊轨迹',
+      path: '/pages/main/index/index'
+    };
+  },
+
+  onShareTimeline () {
+    return {
+      title: '附近确诊轨迹',
+      path: '/pages/main/index/index'
+    };
+  },
+
   render () {
     const {
       userInfo
