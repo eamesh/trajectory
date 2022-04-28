@@ -232,7 +232,7 @@ export default defineComponent({
           {
             nearDiagnosis.length ? (
               <View class='px-3 pt-1 pb-3 page-map__container-info'>
-                截止到{dayjs().format('MM月DD日')}，<Text class='count-text me-2'>{lodationData.range}</Text>公里范围内，共报道病例居住地<Text class='count-text mx-2'>{nearDiagnosis.length}</Text>处，最近的病例居住地距此约<Text class='count-text'>{(nearDiagnosis[0].distance / 6378137).toFixed()}</Text>米
+                截止到{dayjs().format('MM月DD日')}，<Text class='count-text me-2'>{lodationData.range}</Text>公里范围内，共报道病例轨迹<Text class='count-text mx-2'>{nearDiagnosis.length}</Text>处，最近的病例轨迹距此约<Text class='count-text'>{(nearDiagnosis[0].distance / 6378137).toFixed()}</Text>米
               </View>
             ) : null
           }
