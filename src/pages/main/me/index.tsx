@@ -29,7 +29,6 @@ export default defineComponent({
   },
 
   async onShow () {
-    console.log('show');
     this.handleGetUser();
   },
 

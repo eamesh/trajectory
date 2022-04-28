@@ -4,7 +4,6 @@ export default defineAppConfig({
     'pages/main/me/index',
     'pages/funcs/map/index',
     'pages/funcs/community/index',
-    'pages/funcs/day/index',
     'pages/question/index'
   ],
   window: {

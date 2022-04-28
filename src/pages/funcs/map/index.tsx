@@ -62,7 +62,6 @@ export default defineComponent({
       };
       const points: any[] = [];
       nearDiagnosisRef.value.map((item, index) => {
-        console.log(item);
         const newMarker = Object.assign({
           ...marker
         }, {
@@ -83,10 +82,8 @@ export default defineComponent({
           // }
         });
         // newMarker.label.content = item.address;
-        console.log(newMarker);
         points.push(newMarker);
       });
-      console.log(points);
 
       // points.push({
       //   id: points.length,
@@ -97,7 +94,6 @@ export default defineComponent({
       //   // joinCluster: true
       // });
 
-      console.log(mapRef.value);
       markersRef.value = points;
       // mapRef.value.addMarkers({
       //   clear: true,
@@ -108,7 +104,6 @@ export default defineComponent({
     watch(
       () => locationDataRef.value,
       () => {
-        console.log('update location');
         handleGetPositionTrajectory(locationDataRef.value);
       },
       {
@@ -135,8 +130,7 @@ export default defineComponent({
       ];
     });
 
-    function handleClickMarker (e, item, index) {
-      console.log(e, mapRef.value, item, index);
+    function handleClickMarker (_, item, index) {
       currentMarkerId.value = index;
       // locationDataRef.value = {
       //   ...locationDataRef.value,
@@ -170,11 +164,9 @@ export default defineComponent({
   },
 
   onShow () {
-    console.log('show');
     const location = chooseLocation.getLocation();
 
     if (!location) return;
-    console.log(location);
     this.lodationData = {
       ...this.lodationData,
       latitude: location.latitude,
@@ -188,8 +180,6 @@ export default defineComponent({
       //   // height: Taro.pxTransform(30),
       // }]
     };
-
-    console.log(this.lodationData);
   },
 
   render () {

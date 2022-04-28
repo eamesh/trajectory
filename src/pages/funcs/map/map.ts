@@ -88,7 +88,6 @@ export const useMap = () => {
       Taro.getLocation({
         type: 'gcj02',
         success: (res) => {
-          console.log(res);
           resolve(res);
         },
 
@@ -125,7 +124,6 @@ export const useMap = () => {
       };
 
     } catch (error) {
-      console.log(error);
       error.errMsg === 'getLocation:fail auth deny' ? openToast('无法定位，请授权位置服务') : openToast('频繁调用') ;
     }
     Taro.hideLoading();

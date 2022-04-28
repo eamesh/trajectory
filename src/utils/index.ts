@@ -27,7 +27,6 @@ export const hasUserProfile = () => {
   return new Promise((resolve, reject) => {
     try {
       const userProfile = Taro.getStorageSync(USER_PROFILE);
-      console.log(userProfile);
       if (userProfile) {
         resolve(userProfile);
         return;

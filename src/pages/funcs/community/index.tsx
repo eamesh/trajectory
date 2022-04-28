@@ -43,7 +43,6 @@ export default defineComponent({
           },
         }) as any;
 
-        console.log(data);
         listData.value = data.list;
       } catch (error) {
         console.log(error);
