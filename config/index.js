@@ -12,7 +12,7 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: ['@tarojs/plugin-html'],
+  plugins: ['taro-plugin-pinia', '@tarojs/plugin-html'],
   defineConstants: {
   },
   copy: {
@@ -26,6 +26,23 @@ const config = {
     data: '@import "@nutui/nutui-taro/dist/styles/variables.scss";'
   },
   mini: {
+    webpackChain (chain) {
+      chain.merge({
+        module: {
+          rule: {
+            mjsScript: {
+              test: /\.mjs$/,
+              include: [/pinia/],
+              use: {
+                babelLoader: {
+                  loader: require.resolve('babel-loader')
+                }
+              }
+            }
+          }
+        }
+      });
+    },
     postcss: {
       pxtransform: {
         enable: true,

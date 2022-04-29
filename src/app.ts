@@ -1,8 +1,10 @@
 import { createApp } from 'vue';
 import { Button, Toast, Icon, Row, Col, Cell } from '@nutui/nutui-taro';
 import Taro from '@tarojs/taro';
+import { createPinia } from 'pinia';
 
 import './app.scss';
+import { useConfigStore } from './stores/config';
 
 const App = createApp({
   onLaunch () {
@@ -21,12 +23,24 @@ const App = createApp({
     });
   },
 
-  onShow (options) {
+  setup () {
+    //
+  },
+
+  async onShow (options) {
     Taro.cloud.init();
+    // const useConfig = useConfigStore();
+    // useConfig.getConfig();
   },
   // 入口组件不需要实现 render 方法，即使实现了也会被 taro 所覆盖
 });
 
-App.use(Button).use(Toast).use(Icon).use(Row).use(Col).use(Cell);
+App.use(createPinia())
+  .use(Button)
+  .use(Toast)
+  .use(Icon)
+  .use(Row)
+  .use(Col)
+  .use(Cell);
 
 export default App;

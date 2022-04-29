@@ -1,14 +1,18 @@
+import { useConfigStore } from '@/stores/config';
 import { SearchBar, NoticeBar, Empty, Table, Cell } from '@nutui/nutui-taro';
 import { Text, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import dayjs from 'dayjs';
 import { defineComponent, h, ref } from 'vue';
 
+import './style.scss';
+
 export default defineComponent({
   name: 'Community',
 
   setup () {
     const searchValue = ref('');
+    const useConfig = useConfigStore();
 
     const columns = [
       {
@@ -56,7 +60,8 @@ export default defineComponent({
       searchValue,
       columns,
       listData,
-      handleSearch
+      handleSearch,
+      configState: useConfig
     };
   },
 
@@ -96,12 +101,13 @@ export default defineComponent({
           }}
         </SearchBar>
         <NoticeBar
+          class='notice-bar'
           wrapable
           background="`rgba(251, 248, 220, 1)`"
           color="`#D9500B`"
         >
           <View>
-            数据采集于济南市卫健委及各网络平台，不信谣不传谣
+            {this.configState.config.community}
           </View>
         </NoticeBar>
 
