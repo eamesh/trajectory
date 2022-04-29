@@ -100,7 +100,7 @@ export default defineComponent({
           color="`#D9500B`"
         >
           <View>
-            数据采集于济南市卫健委
+            数据采集于济南市卫健委及各网络平台，不信谣不传谣
           </View>
         </NoticeBar>
 
