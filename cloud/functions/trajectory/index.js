@@ -14,7 +14,9 @@ exports.main = async (event, context) => {
       spherical: true,
       maxDistance: (parseInt(event.range) * 1000) / 6378137,
       near: db.Geo.Point(event.longitude, event.latitude),
+      limit: 500,
     })
+    .limit(500)
     .end();
 
   // return db.collection('trajectory').where({

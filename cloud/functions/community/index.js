@@ -7,7 +7,6 @@ const db = cloud.database();
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
-  console.log(event);
   return await db.collection('community').aggregate().match(_.or([
     {
       address: db.RegExp({
@@ -21,7 +20,9 @@ exports.main = async (event, context) => {
         options: 'i'
       }),
     }
-  ])).sort({
+  ]))
+  .limit(500)
+  .sort({
     date: -1
   }).end();
 };

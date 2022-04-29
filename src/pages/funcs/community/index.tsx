@@ -32,6 +32,7 @@ export default defineComponent({
     const loading = ref(false);
 
     async function handleSearch () {
+      if (!searchValue.value) return;
       loading.value = true;
       try {
         const {
