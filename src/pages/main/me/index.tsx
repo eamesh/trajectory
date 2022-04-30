@@ -87,8 +87,8 @@ export default defineComponent({
           }}></Button>
         </nut-cell>
 
-        {/* <Ad class='mt-3' unitId="Adunit-731482e2925c655a" adType="video" adTheme="white"></Ad> */}
-        <Ad class='mt-3' unitId="adunit-9fd89de66896753d"></Ad>
+        <Ad class='mt-3' unitId="Adunit-731482e2925c655a" adType="video" adTheme="white" onError={(err) => {console.log(err);}}></Ad>
+        {/* <Ad class='mt-3' unitId="adunit-9fd89de66896753d"></Ad> */}
       </View>
     );
   }
