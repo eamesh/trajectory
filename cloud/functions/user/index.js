@@ -16,9 +16,11 @@ async function handleUpsert (data) {
     params.created_at = date
   );
 
-  return await db.collection('user').doc(data.openid).set({
+  const result = await db.collection('user').doc(data.openid).set({
     data: params
   });
+
+  return await db.collection('user').doc(data.openid).get();
 }
 
 async function handleGet () {

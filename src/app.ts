@@ -5,6 +5,7 @@ import { createPinia } from 'pinia';
 
 import './app.scss';
 import { useConfigStore } from './stores/config';
+import { USER_OPENID } from './constants/user';
 
 const App = createApp({
   onLaunch () {
@@ -29,13 +30,21 @@ const App = createApp({
 
   async onShow (options) {
     Taro.cloud.init();
-    const res = await Taro.cloud.callFunction({
-      name: 'user',
-      data: {
-        type: 'upsert',
-      },
-    });
-    console.log(res.result);
+    try {
+      const openid = Taro.getStorageSync(USER_OPENID);
+      if (!openid) {
+        const res = await Taro.cloud.callFunction({
+          name: 'user',
+          data: {
+            type: 'upsert',
+          },
+        }) as any;
+        console.log(res.result.data.openid);
+        Taro.setStorageSync(USER_OPENID, res.result.data.openid);
+      }
+    } catch (error) {
+      console.log(error);
+    }
     const useConfig = useConfigStore();
     useConfig.getConfig();
   },
