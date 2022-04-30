@@ -1,3 +1,4 @@
+import { useUserStore } from '@/stores/user';
 import { getUserProfile } from '@/utils';
 import { View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
@@ -18,8 +19,10 @@ export default defineComponent({
   props: cardProps,
 
   setup (props) {
+    const useUser = useUserStore();
     function handleOnClick (_: MouseEvent) {
-      getUserProfile().then(() => {
+      console.log(useUser);
+      useUser.getUser().then(() => {
         Taro.navigateTo({
           url: props.url as string
         });

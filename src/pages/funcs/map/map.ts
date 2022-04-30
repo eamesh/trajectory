@@ -64,14 +64,14 @@ export const useMap = () => {
 
   onMounted(async () => {
     mapRef.value = Taro.createMapContext('map');
-    mapRef.value.initMarkerCluster({
-      enableDefaultStyle: false,
-      zoomOnClick: true,
-      gridSize: 200,
-      complete(res) {
-        console.log('initMarkerCluster', res);
-      }
-    });
+    // mapRef.value.initMarkerCluster({
+    //   enableDefaultStyle: false,
+    //   zoomOnClick: true,
+    //   gridSize: 200,
+    //   complete(res) {
+    //     console.log('initMarkerCluster', res);
+    //   }
+    // });
   });
 
   function handleSetLocation () {

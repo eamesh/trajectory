@@ -15,7 +15,7 @@ export const getUserProfile = () => {
         desc: '用于完善会员资料',
         success: (res) => {
           Taro.setStorageSync(USER_PROFILE, res.userInfo);
-          resolve(res);
+          resolve(res.userInfo);
         },
         fail: (error) => {
           reject(error);

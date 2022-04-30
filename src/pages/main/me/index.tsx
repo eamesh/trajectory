@@ -6,30 +6,27 @@ import Wechat from '@/assets/images/wechat.png';
 
 import './style.scss';
 import Taro from '@tarojs/taro';
-import { getUserProfile, shareParams } from '@/utils';
+import { shareParams } from '@/utils';
+import { useUserStore } from '@/stores/user';
 
 export default defineComponent({
   name: 'Me',
 
   setup () {
-    const userInfo = ref({
-      avatarUrl: ''
-    });
+    const useUser = useUserStore();
 
     function handleGetUser () {
-      getUserProfile().then((res: any) => {
-        userInfo.value = res;
-      });
+      useUser.getUser();
     }
 
     return {
-      userInfo,
+      useUser,
       handleGetUser
     };
   },
 
   async onShow () {
-    this.handleGetUser();
+    // this.handleGetUser();
   },
 
   onShareAppMessage () {
@@ -42,7 +39,7 @@ export default defineComponent({
 
   render () {
     const {
-      userInfo
+      useUser
     } = this;
     return (
       <View class='page py-2 px-3 page-me'>
@@ -50,9 +47,9 @@ export default defineComponent({
           <View class='d-flex flex-row py-2' onClick={() => {
             this.handleGetUser();
           }}>
-            <Avatar url={userInfo.avatarUrl || ''} />
+            <Avatar url={useUser.user.avatarUrl || ''} />
             <View class='d-flex flex-column ms-3 justify-content-between'>
-              <View class='avatar-name'>{userInfo.nickName || '微信用户'}</View>
+              <View class='avatar-name'>{useUser.user.nickName || '微信用户'}</View>
               <View class='avatar-text'>向战斗在抗击疫情一线的医务工作者和社会各界人士致敬!</View>
             </View>
           </View>
