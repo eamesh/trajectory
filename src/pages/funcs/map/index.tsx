@@ -280,7 +280,7 @@ export default defineComponent({
                 </>
               }
             </View>
-            <View class='bottom-bar'>
+            <View class='bottom-bar safe-area-inset-bottom'>
               <Button plain class='me-2' type="primary" icon='notice' onClick={handleSubscribeMessage}>订阅通报消息</Button>
               <Button plain class='ms-2' type="info" icon='share' {...{
                 openType: 'share'

@@ -15,10 +15,6 @@ page {
   font-size: 12px;
 }
 
-.safe-area-inset-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
 .count-text {
   color: red;
 }
@@ -31,5 +27,9 @@ page {
   position: fixed;
   bottom: 0;
   left: 0;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: 30px;
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom) !important;
 }

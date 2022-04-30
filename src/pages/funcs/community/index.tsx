@@ -127,7 +127,7 @@ export default defineComponent({
             )
           )
         }
-        <View class='bottom-bar px-3' style={{boxSizing: 'border-box'}}>
+        <View class='bottom-bar px-3 safe-area-inset-bottom' style={{boxSizing: 'border-box'}}>
           <Button block type='info' size='large' plain icon='share' {...{
             openType: 'share'
           }}>分享好友</Button>
