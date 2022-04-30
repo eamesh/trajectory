@@ -2,6 +2,7 @@ import { USER_PROFILE } from '@/constants/user';
 import Taro from '@tarojs/taro';
 import dayjs from 'dayjs';
 import Share from '@/assets/images/share.jpg';
+import { useConfigStore } from '@/stores/config';
 
 export const getUserProfile = () => {
   return new Promise(async (resolve, reject) => {
@@ -52,8 +53,10 @@ export const hasUserProfile = () => {
 };
 
 export const shareParams = () => {
+  const useConfig = useConfigStore();
+  console.log(useConfig.config);
   return {
-    title: `${dayjs().format('M月D日，附近确诊地图，实时查询附近疫情情况')}`,
+    title: `${dayjs().format(useConfig.config.share)}`,
     imageUrl: Share,
     path: '/pages/main/index/index'
   };

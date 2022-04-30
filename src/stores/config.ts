@@ -4,6 +4,7 @@ import { defineStore } from 'pinia';
 export interface ConfigSchema {
   notice: string;
   community: string;
+  share: string;
   [key:string]: any;
 }
 
@@ -14,10 +15,10 @@ export interface ConfigStoreState {
 export const useConfigStore = defineStore('config', {
   state: () => {
     return {
-      name: '测',
       config: {
         notice: '',
-        community: ''
+        community: '',
+        share: ''
       }
     };
   },
