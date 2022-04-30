@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import { View } from '@tarojs/components';
+import { Ad, View } from '@tarojs/components';
 import Map from '@/assets/images/map.png';
 import Search from '@/assets/images/search.png';
 // import Browser from '@/assets/images/browser.png';
@@ -9,31 +9,47 @@ import './style.scss';
 import Taro from '@tarojs/taro';
 import { NoticeBar } from '@nutui/nutui-taro';
 import { useConfigStore } from '@/stores/config';
+import { shareParams } from '@/utils';
 
 export default defineComponent({
   name: 'Index',
 
   onShareAppMessage () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   onShareTimeline () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   setup () {
     const useConfig = useConfigStore();
-    useConfig.getConfig();
 
     return {
       configState: useConfig,
     };
+  },
+
+  onLoad () {
+    // 在页面中定义插屏广告
+    let interstitialAd: any = null;
+
+    // 在页面onLoad回调事件中创建插屏广告实例
+    if (Taro.createInterstitialAd) {
+      interstitialAd = Taro.createInterstitialAd({
+        adUnitId: 'adunit-5b0066ab9e9eed55'
+      });
+      interstitialAd.onLoad(() => {});
+      interstitialAd.onError((err) => {});
+      interstitialAd.onClose(() => {});
+    }
+
+    // 在适合的场景显示插屏广告
+    if (interstitialAd) {
+      interstitialAd.show().catch((err) => {
+        console.error(err);
+      });
+    }
   },
 
   render () {
@@ -63,6 +79,7 @@ export default defineComponent({
             </nut-col>
             <nut-col span='12'></nut-col>
           </nut-row> */}
+          <Ad class='mt-1' unitId="adunit-03d43d2663dc745c"></Ad>
         </View>
       </View>
     );

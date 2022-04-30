@@ -1,12 +1,12 @@
 import { defineComponent, ref } from 'vue';
-import { OpenData, View } from '@tarojs/components';
+import { Ad, View } from '@tarojs/components';
 import { Avatar, Button } from '@nutui/nutui-taro';
 import Qustion from '@/assets/images/request.png';
 import Wechat from '@/assets/images/wechat.png';
 
 import './style.scss';
 import Taro from '@tarojs/taro';
-import { getUserProfile } from '@/utils';
+import { getUserProfile, shareParams } from '@/utils';
 
 export default defineComponent({
   name: 'Me',
@@ -33,17 +33,11 @@ export default defineComponent({
   },
 
   onShareAppMessage () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   onShareTimeline () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   render () {
@@ -93,8 +87,10 @@ export default defineComponent({
           </View>
           <Button class='contact-btn' {...{
             openType: 'contact'
-          }}>asd</Button>
+          }}></Button>
         </nut-cell>
+
+        <Ad class='mt-3' unitId="Adunit-731482e2925c655a" adType="video" adTheme="white"></Ad>
       </View>
     );
   }

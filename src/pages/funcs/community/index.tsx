@@ -1,5 +1,6 @@
 import { useConfigStore } from '@/stores/config';
-import { SearchBar, NoticeBar, Empty, Table, Cell } from '@nutui/nutui-taro';
+import { shareParams } from '@/utils';
+import { SearchBar, NoticeBar, Empty, Table, Cell, Button } from '@nutui/nutui-taro';
 import { Text, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import dayjs from 'dayjs';
@@ -66,17 +67,11 @@ export default defineComponent({
   },
 
   onShareAppMessage () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   onShareTimeline () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   render () {
@@ -132,7 +127,11 @@ export default defineComponent({
             )
           )
         }
-
+        <View class='bottom-bar px-3' style={{boxSizing: 'border-box'}}>
+          <Button block type='info' size='large' plain icon='share' {...{
+            openType: 'share'
+          }}>分享好友</Button>
+        </View>
       </View>
     );
   }

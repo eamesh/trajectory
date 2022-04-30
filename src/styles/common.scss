@@ -22,3 +22,14 @@ page {
 .count-text {
   color: red;
 }
+
+.bottom-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}

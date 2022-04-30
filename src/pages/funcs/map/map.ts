@@ -121,8 +121,15 @@ export const useMap = () => {
           //   height: Taro.pxTransform(30),
           // }
         // ]
-      };
 
+      };
+      console.log(mapRef.value);
+      mapRef.value.moveToLocation({
+        ...locationDataRef.value,
+        success (res) {
+          console.log(res);
+        }
+      });
     } catch (error) {
       error.errMsg === 'getLocation:fail auth deny' ? openToast('无法定位，请授权位置服务') : openToast('频繁调用') ;
     }

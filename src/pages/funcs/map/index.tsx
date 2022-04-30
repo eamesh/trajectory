@@ -1,15 +1,16 @@
 /* eslint-disable vue/no-async-in-computed-properties */
-import { Empty, InputNumber, Skeleton } from '@nutui/nutui-taro';
+import { Button, Empty, InputNumber } from '@nutui/nutui-taro';
 import { Map, View, ScrollView, Text } from '@tarojs/components';
 import Taro, { requirePlugin } from '@tarojs/taro';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { useMap } from './map';
 import { useData } from './data';
-import Marker from '@/assets/images/marker.png';
 // import Self from '@/assets/images/self.png';
 import dayjs from 'dayjs';
+import Marker from '@/assets/images/marker.png';
 
 import './style.scss';
+import { shareParams } from '@/utils';
 
 const chooseLocation = requirePlugin('chooseLocation');
 
@@ -146,6 +147,18 @@ export default defineComponent({
       handleSetMarkers();
     }
 
+    function handleSubscribeMessage () {
+      // 订阅消息
+      Taro.requestSubscribeMessage({
+        tmplIds: [
+          'L3a4q3GhcSbxE9MG-1dAv4VRurm6ygRog6-sGjLbfUs'
+        ],
+        success: (res) => {
+          console.log(res);
+        }
+      });
+    }
+
     return {
       loading,
       markers: markersRef,
@@ -159,7 +172,8 @@ export default defineComponent({
       containerInfo,
       nearDiagnosis: nearDiagnosisRef,
       handleClickMarker,
-      mapCircle
+      mapCircle,
+      handleSubscribeMessage
     };
   },
 
@@ -183,17 +197,11 @@ export default defineComponent({
   },
 
   onShareAppMessage () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   onShareTimeline () {
-    return {
-      title: '附近确诊轨迹',
-      path: '/pages/main/index/index'
-    };
+    return shareParams();
   },
 
   render () {
@@ -208,7 +216,8 @@ export default defineComponent({
       handleGetLocation,
       nearDiagnosis,
       handleClickMarker,
-      mapCircle
+      mapCircle,
+      handleSubscribeMessage
     } = this;
 
     return (
@@ -270,6 +279,12 @@ export default defineComponent({
                   }
                 </>
               }
+            </View>
+            <View class='bottom-bar'>
+              <Button plain class='me-2' type="primary" icon='notice' onClick={handleSubscribeMessage}>订阅通报消息</Button>
+              <Button plain class='ms-2' type="info" icon='share' {...{
+                openType: 'share'
+              }}>分享保护身边人</Button>
             </View>
           </ScrollView>
         </View>
