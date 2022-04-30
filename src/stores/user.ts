@@ -10,12 +10,14 @@ export interface UserSchema {
 }
 
 export interface UserStoreState {
+  openid: string | null;
   user: UserSchema;
 }
 
 export const useUserStore = defineStore('user', {
   state: (): UserStoreState => {
     return {
+      openid: null,
       user: Taro.getStorageSync(USER_PROFILE)
     };
   },
@@ -32,6 +34,10 @@ export const useUserStore = defineStore('user', {
           reject(error);
         }
       });
+    },
+
+    setOpenid (openid: string) {
+      this.openid = openid;
     }
   }
 });

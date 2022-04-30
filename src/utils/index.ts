@@ -7,6 +7,7 @@ export const getUserProfile = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const userProfile = await hasUserProfile();
+
       resolve(userProfile);
     } catch (error) {
       console.log(error);
@@ -15,6 +16,14 @@ export const getUserProfile = () => {
         desc: '用于完善会员资料',
         success: (res) => {
           Taro.setStorageSync(USER_PROFILE, res.userInfo);
+          // 存储用户信息
+          Taro.cloud.callFunction({
+            name: 'user',
+            data: {
+              type: 'upsert',
+              data: res.userInfo
+            }
+          });
           resolve(res.userInfo);
         },
         fail: (error) => {

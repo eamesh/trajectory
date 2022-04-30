@@ -29,6 +29,13 @@ const App = createApp({
 
   async onShow (options) {
     Taro.cloud.init();
+    const res = await Taro.cloud.callFunction({
+      name: 'user',
+      data: {
+        type: 'upsert',
+      },
+    });
+    console.log(res.result);
     const useConfig = useConfigStore();
     useConfig.getConfig();
   },
