@@ -41,7 +41,7 @@ export default defineComponent({
       // 在页面onLoad回调事件中创建插屏广告实例
       if (Taro.createInterstitialAd) {
         interstitialAd = Taro.createInterstitialAd({
-          adUnitId: 'adunit-5b0066ab9e9eed55'
+          adUnitId: process.env.AD_INTERSTITIALAD_HOME as string
         });
         interstitialAd.onLoad(() => {});
         interstitialAd.onError((err) => {});
@@ -92,7 +92,7 @@ export default defineComponent({
                 </nut-col>
                 <nut-col span='12'></nut-col>
               </nut-row> */}
-              <Ad class='mt-1' unitId="adunit-03d43d2663dc745c"></Ad>
+              <Ad class='mt-1' unitId={process.env.AD_BANNER_HOME}></Ad>
             </View>
           </View>
         ) : (
@@ -112,7 +112,7 @@ export default defineComponent({
                 </nut-col>
                 <nut-col span='12'></nut-col>
               </nut-row> */}
-              <Ad class='mt-1' unitId="adunit-03d43d2663dc745c"></Ad>
+              <Ad class='mt-1' unitId={process.env.AD_BANNER_HOME}></Ad>
             </View>
           </View>
         )
