@@ -5,11 +5,25 @@
 
 ## 目录
 - [目录](#目录)
+- [过审](#过审)
 - [功能](#功能)
 - [微信云数据库记录结构](#微信云数据库记录结构)
 - [微信小程序预览](#微信小程序预览)
 - [展示](#展示)
+- [审核版本展示](#审核版本展示)
 - [License](#license)
+
+## 过审
+
+<p>关于个人过审的问题, 小程序审核就是脑抽</p>
+<p>过程真是很蛋疼，第一次提交审核全功能给我过审。版本更新卡我个人资质不能使用出行和交通插件:smile:</p>
+<p>我特么都提交审核好几次了，之前怎么不卡这玩意:weary:</p>
+
+> 解决： 
+> 
+> .env配置文件中的版本号要高于数据库中的version， 线上环境根据版本号匹配，判断是否是审核版本。
+> 
+> 审核版本隐藏掉所有页面，并显示功能移除文案。 只做组件Demo演示
 
 ## 功能
 
@@ -71,6 +85,11 @@
 <a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/02.png"><img src="./resource/02.png" width="200"></a>
 <a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/03.png"><img src="./resource/03.png" width="200"></a>
 <a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/04.png"><img src="./resource/04.png" width="200"></a>
+
+## 审核版本展示
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png"><img src="./resource/05.png" width="200"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png"><img src="./resource/06.png" width="200"></a>
+
 
 > 开源项目，请勿用于违法活动。任何相关法律问题与本人无关
 
