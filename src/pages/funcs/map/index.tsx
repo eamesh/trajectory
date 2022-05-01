@@ -179,7 +179,7 @@ export default defineComponent({
       handleClickMarker,
       mapCircle,
       handleSubscribeMessage,
-      useConfig,
+      useConfigState: useConfig,
       isNoExamine,
     };
   },
@@ -225,80 +225,86 @@ export default defineComponent({
       handleClickMarker,
       mapCircle,
       handleSubscribeMessage,
-      isNoExamine
+      isNoExamine,
     } = this;
 
     return (
-      isNoExamine ? (
-        <View class='page page-map'>
-          <nut-toast msg={toastData.msg} v-model:visible={toastData.show} type={toastData.type}  cover={toastData.cover} />
-          <View class='location'>
-            <nut-icon onClick={handleGetLocation} color='#fff' class='location' name='location2' />
-          </View>
-          <Map
-            id='map'
-            class='map'
-            showLocation
-            latitude={lodationData.latitude}
-            longitude={lodationData.longitude}
-            markers={markers}
-            style={mapStyle}
-            scale='12'
-            // onMarkertap={handleClickMarker}
-            circles={mapCircle}
-          ></Map>
-          <View class='d-flex flex-column page-map__container' style={containerHeight}>
-            <nut-row gutter={12} class='py-3 page-map__container-header'>
-              <nut-col span={12}>
-                <View class='d-flex justify-content-center align-items-center'>
-                  <nut-button size='small' type='info' onClick={handleSetLocation}>设置位置</nut-button>
-                </View>
-              </nut-col>
-              <nut-col span={12}>
-                <View class='d-flex justify-content-center align-items-center'>
-                  <InputNumber v-model={lodationData.range} buttonSize={30} inputWidth={50}  />
-                  <View class='ms-1 text-wrap'>公里</View>
-                </View>
-              </nut-col>
-            </nut-row>
-            {
-              nearDiagnosis.length ? (
-                <View class='px-3 pt-1 pb-3 page-map__container-info'>
-                  截止到{dayjs().format('MM月DD日')}，<Text class='count-text me-2'>{lodationData.range}</Text>公里范围内，共报道病例轨迹<Text class='count-text mx-2'>{nearDiagnosis.length}</Text>处，最近的病例轨迹距此约<Text class='count-text'>{(nearDiagnosis[0].distance / 6378137).toFixed()}</Text>米
-                </View>
-              ) : null
-            }
-            <ScrollView scrollY class='page-map__container-scroll'>
-              <View class='safe-area-inset-bottom px-2'>
-                {
-                  loading ? (
-                    <View class='d-flex flex-column align-items-center' style={{
-                      marginTop: Taro.pxTransform(50)
-                    }}>
-                      <nut-icon name="loading1" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
-                      <View class='text-wrap mt-2'>加载中</View>
-                    </View>
-                  ) : <>
-                    {
-                      nearDiagnosis.length ? nearDiagnosis.map((item, index) => {
-                        return (
-                          <nut-cell title={item.address} subTitle={dayjs(item.date).format('YYYY-MM-DD HH:mm:ss')} desc={`${((item.distance / 6378137) / 1000).toFixed(2)}km`} onClick={(e) => handleClickMarker(e, item, index)}></nut-cell>
-                        );
-                      }) : <Empty />
-                    }
-                  </>
-                }
-              </View>
-              <View class='bottom-bar safe-area-inset-bottom'>
-                <Button plain class='me-2' type="primary" icon='notice' onClick={handleSubscribeMessage}>订阅通报消息</Button>
-                <Button plain class='ms-2' type="info" icon='share' {...{
-                  openType: 'share'
-                }}>分享保护身边人</Button>
-              </View>
-            </ScrollView>
-          </View>
+      this.useConfigState.loading ? (
+        <View class='page d-flex justify-content-center align-items-center'>
+          <nut-icon size='24' name="refresh2" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
         </View>
-      ) : <View class='page d-flex justify-content-center align-items-center'>业务整改, 停止服务</View>
+      ) : (
+        isNoExamine ? (
+          <View class='page page-map'>
+            <nut-toast msg={toastData.msg} v-model:visible={toastData.show} type={toastData.type}  cover={toastData.cover} />
+            <View class='location'>
+              <nut-icon onClick={handleGetLocation} color='#fff' class='location' name='location2' />
+            </View>
+            <Map
+              id='map'
+              class='map'
+              showLocation
+              latitude={lodationData.latitude}
+              longitude={lodationData.longitude}
+              markers={markers}
+              style={mapStyle}
+              scale='12'
+              // onMarkertap={handleClickMarker}
+              circles={mapCircle}
+            ></Map>
+            <View class='d-flex flex-column page-map__container' style={containerHeight}>
+              <nut-row gutter={12} class='py-3 page-map__container-header'>
+                <nut-col span={12}>
+                  <View class='d-flex justify-content-center align-items-center'>
+                    <nut-button size='small' type='info' onClick={handleSetLocation}>设置位置</nut-button>
+                  </View>
+                </nut-col>
+                <nut-col span={12}>
+                  <View class='d-flex justify-content-center align-items-center'>
+                    <InputNumber v-model={lodationData.range} buttonSize={30} inputWidth={50}  />
+                    <View class='ms-1 text-wrap'>公里</View>
+                  </View>
+                </nut-col>
+              </nut-row>
+              {
+                nearDiagnosis.length ? (
+                  <View class='px-3 pt-1 pb-3 page-map__container-info'>
+                    截止到{dayjs().format('MM月DD日')}，<Text class='count-text me-2'>{lodationData.range}</Text>公里范围内，共报道病例轨迹<Text class='count-text mx-2'>{nearDiagnosis.length}</Text>处，最近的病例轨迹距此约<Text class='count-text'>{(nearDiagnosis[0].distance / 6378137).toFixed()}</Text>米
+                  </View>
+                ) : null
+              }
+              <ScrollView scrollY class='page-map__container-scroll'>
+                <View class='safe-area-inset-bottom px-2'>
+                  {
+                    loading ? (
+                      <View class='d-flex flex-column align-items-center' style={{
+                        marginTop: Taro.pxTransform(50)
+                      }}>
+                        <nut-icon name="loading1" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
+                        <View class='text-wrap mt-2'>加载中</View>
+                      </View>
+                    ) : <>
+                      {
+                        nearDiagnosis.length ? nearDiagnosis.map((item, index) => {
+                          return (
+                            <nut-cell title={item.address} subTitle={dayjs(item.date).format('YYYY-MM-DD HH:mm:ss')} desc={`${((item.distance / 6378137) / 1000).toFixed(2)}km`} onClick={(e) => handleClickMarker(e, item, index)}></nut-cell>
+                          );
+                        }) : <Empty />
+                      }
+                    </>
+                  }
+                </View>
+                <View class='bottom-bar safe-area-inset-bottom'>
+                  <Button plain class='me-2' type="primary" icon='notice' onClick={handleSubscribeMessage}>订阅通报消息</Button>
+                  <Button plain class='ms-2' type="info" icon='share' {...{
+                    openType: 'share'
+                  }}>分享保护身边人</Button>
+                </View>
+              </ScrollView>
+            </View>
+          </View>
+        ) : <View class='page d-flex justify-content-center align-items-center'>业务整改, 停止服务</View>
+      )
     );
   }
 });

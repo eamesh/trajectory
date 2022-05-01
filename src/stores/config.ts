@@ -10,18 +10,20 @@ export interface ConfigSchema {
 }
 
 export interface ConfigStoreState {
+  loading: boolean;
   config: ConfigSchema;
 }
 
 export const useConfigStore = defineStore('config', {
-  state: () => {
+  state: (): ConfigStoreState => {
     return {
+      loading: true,
       config: {
         notice: '',
         community: '',
         share: '',
         map: false,
-        version: ''
+        version: '',
       }
     };
   },
@@ -35,7 +37,8 @@ export const useConfigStore = defineStore('config', {
 
   actions: {
     async getConfig () {
-      Taro.showLoading();
+      // Taro.showLoading();
+      this.loading = true;
       try {
         // 获取配置
         const {
@@ -52,7 +55,8 @@ export const useConfigStore = defineStore('config', {
         });
         console.log(error);
       }
-      Taro.hideLoading();
+      this.loading = false;
+      // Taro.hideLoading();
     }
   }
 });

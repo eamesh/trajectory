@@ -62,18 +62,22 @@ export default defineComponent({
   render () {
 
     return (
-      <View class='page'>
-        {
-          this.configState.config.notice ? (
-            <NoticeBar closeMode background='rgba(47, 104, 217, .7)' color='#fff' rightIcon='circle-close'>
-              {this.configState.config.notice}
-            </NoticeBar>
-          ) : null
-        }
-        <View class='page-home'>
-          <View class='pb-2'>功能</View>
-          {
-            this.isNoExamine ? (
+      this.configState.loading ? (
+        <View class='page d-flex justify-content-center align-items-center'>
+          <nut-icon size='24' name="refresh2" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
+        </View>
+      ) : (
+        this.isNoExamine ? (
+          <View class='page'>
+            {
+              this.configState.config.notice ? (
+                <NoticeBar closeMode background='rgba(47, 104, 217, .7)' color='#fff' rightIcon='circle-close'>
+                  {this.configState.config.notice}
+                </NoticeBar>
+              ) : null
+            }
+            <View class='page-home'>
+              <View class='pb-2'>功能</View>
               <nut-row gutter='10'>
                 <nut-col span='12'>
                   <Card title='历史轨迹' extra='快速查询附近轨迹' icon={Map} url='/pages/funcs/map/index' />
@@ -82,7 +86,19 @@ export default defineComponent({
                   <Card title='小区查询' extra='查询你的小区情况' icon={Search} url='/pages/funcs/community/index' />
                 </nut-col>
               </nut-row>
-            ): (
+              {/* <nut-row gutter='10'>
+                <nut-col span='12'>
+                  <Card title='每日通报' extra='每日最新情况' icon={Browser} url='/pages/funcs/day/index' />
+                </nut-col>
+                <nut-col span='12'></nut-col>
+              </nut-row> */}
+              <Ad class='mt-1' unitId="adunit-03d43d2663dc745c"></Ad>
+            </View>
+          </View>
+        ) : (
+          <View class='page'>
+            <View class='page-home'>
+              <View class='pb-2'>功能</View>
               <nut-row gutter='10'>
                 <nut-col span='12'>
                 </nut-col>
@@ -90,17 +106,17 @@ export default defineComponent({
                   <Card title='组件展示' extra='常用组件演示' icon={Search} url='/pages/funcs/demo/index' />
                 </nut-col>
               </nut-row>
-            )
-          }
-          {/* <nut-row gutter='10'>
-            <nut-col span='12'>
-              <Card title='每日通报' extra='每日最新情况' icon={Browser} url='/pages/funcs/day/index' />
-            </nut-col>
-            <nut-col span='12'></nut-col>
-          </nut-row> */}
-          <Ad class='mt-1' unitId="adunit-03d43d2663dc745c"></Ad>
-        </View>
-      </View>
+              {/* <nut-row gutter='10'>
+                <nut-col span='12'>
+                  <Card title='每日通报' extra='每日最新情况' icon={Browser} url='/pages/funcs/day/index' />
+                </nut-col>
+                <nut-col span='12'></nut-col>
+              </nut-row> */}
+              <Ad class='mt-1' unitId="adunit-03d43d2663dc745c"></Ad>
+            </View>
+          </View>
+        )
+      )
     );
   }
 });
