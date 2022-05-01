@@ -9,19 +9,23 @@ import { USER_OPENID } from './constants/user';
 
 const App = createApp({
   onLaunch () {
-    const updateManager = Taro.getUpdateManager();
+    try {
+      const updateManager = Taro.getUpdateManager();
 
-    updateManager.onUpdateReady(() => {
-      Taro.showModal({
-        title: '更新提示',
-        content: '新版本已准备好，是否重启应用?',
-        success (res) {
-          if (res.confirm) {
-            updateManager.applyUpdate();
+      updateManager.onUpdateReady(() => {
+        Taro.showModal({
+          title: '更新提示',
+          content: '新版本已准备好，是否重启应用?',
+          success (res) {
+            if (res.confirm) {
+              updateManager.applyUpdate();
+            }
           }
-        }
+        });
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   setup () {
