@@ -25,7 +25,7 @@ yarn // 安装
 yarn dev:weapp // 开发环境
 yarn build:weapp // 构建生产环境版本
 ```
-.env中的 APP_VERSION 根据自己版本号配置
+<code>.env</code> 中的 <code>APP_VERSION</code> 根据自己版本号配置
 
 ## 过审 (有认证资质可以忽略)
 
@@ -35,10 +35,10 @@ yarn build:weapp // 构建生产环境版本
 
 ## 过审方案：
 
-> 审核时.env中的版本号要高于数据库config中version的版本号. 线上环境根据版本号匹配，判断是否是审核版本。  
+> 审核时 <code>.env</code> 中的版本号要高于数据库 <code>config</code> 中 <code>version</code> 的版本号. 线上环境根据版本号匹配，判断是否是审核版本。  
 > 审核版本隐藏掉所有页面，并显示功能移除文案。 只做组件Demo演示
 [审核版本展示](#审核版本展示)  
-> 过审后把数据库config中的version改成线上版本号, 达到过审的目的
+> 过审后把数据库 <code>config</code> 中的 <code>version</code> 改成线上版本号, 达到过审的目的
 
 ## 功能
 
@@ -52,7 +52,7 @@ yarn build:weapp // 构建生产环境版本
 
 `集合自行创建`
 
-> community：封控、管控
+<code>community</code>：封控、管控
 
 ```
   {
@@ -63,7 +63,7 @@ yarn build:weapp // 构建生产环境版本
   }
 ```
 
-> config： 配置
+<code>config</code>： 配置
 
 ```
   {
@@ -72,7 +72,7 @@ yarn build:weapp // 构建生产环境版本
   }
 ```
 
-> trajectory：轨迹
+<code>trajectory</code>：轨迹
 
 ```
   {
@@ -83,7 +83,7 @@ yarn build:weapp // 构建生产环境版本
   }
 ```
 
-> user：用户
+<code>user</code>：用户
 
 ```
   // 微信用户信息
