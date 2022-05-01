@@ -19,7 +19,7 @@
 
 ## 展示
 
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png" width="240"></a>
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/02.png" width="240"></a>
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/03.png" width="240"></a>
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/04.png" width="240"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png" width="200"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/02.png" width="200"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/03.png" width="200"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/04.png" width="200"></a>
