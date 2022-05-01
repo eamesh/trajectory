@@ -1,10 +1,10 @@
-import { useConfigStore } from '@/stores/config';
+import { useExamine } from '@/hooks/examine';
 import { shareParams } from '@/utils';
 import { SearchBar, NoticeBar, Empty, Table, Cell, Button } from '@nutui/nutui-taro';
 import { Text, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import dayjs from 'dayjs';
-import { defineComponent, h, ref } from 'vue';
+import { computed, defineComponent, h, ref } from 'vue';
 
 import './style.scss';
 
@@ -13,8 +13,10 @@ export default defineComponent({
 
   setup () {
     const searchValue = ref('');
-    const useConfig = useConfigStore();
-
+    const {
+      useConfig,
+      isNoExamine
+    } = useExamine();
     const columns = [
       {
         title: '行政区',
@@ -56,13 +58,32 @@ export default defineComponent({
       loading.value = false;
     }
 
+    const safeAreaStyle = computed(() => {
+      const {
+        safeArea: {
+          bottom
+        },
+        screenHeight
+      }: any = Taro.getSystemInfoSync();
+
+      const safeAreaHeight = screenHeight - bottom;
+      const paddingBottom = safeAreaHeight ? `${safeAreaHeight}px` : Taro.pxTransform(34);
+
+      return {
+        paddingBottom,
+        boxSizing: 'border-box'
+      };
+    });
+
     return {
       loading,
       searchValue,
       columns,
       listData,
       handleSearch,
-      configState: useConfig
+      configState: useConfig,
+      safeAreaStyle,
+      isNoExamine
     };
   },
 
@@ -83,56 +104,62 @@ export default defineComponent({
     } = this;
 
     return (
-      <View class='page' style={{
-        overflowY: 'auto'
-      }}>
-        <SearchBar onSearch={handleSearch} placeholder='请输入小区名' {...{
-          autofocus: true
-        }} v-model={this.searchValue}>
-          {{
-            rightout: () => {
-              return <View onClick={handleSearch}>搜索</View>;
-            }
-          }}
-        </SearchBar>
-        <NoticeBar
-          class='notice-bar'
-          wrapable
-          background="`rgba(251, 248, 220, 1)`"
-          color="`#D9500B`"
-        >
-          <View>
-            {this.configState.config.community}
-          </View>
-        </NoticeBar>
-
-        {
-          loading ? (
-            <View class='d-flex flex-column align-items-center' style={{
-              marginTop: Taro.pxTransform(50)
-            }}>
-              <nut-icon name="loading1" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
-              <View class='text-wrap mt-2'>加载中</View>
+      this.isNoExamine ? (
+        <View class='page' style={{
+          overflowY: 'auto'
+        }}>
+          <SearchBar onSearch={handleSearch} placeholder='请输入小区名' {...{
+            autofocus: true
+          }} v-model={this.searchValue}>
+            {{
+              rightout: () => {
+                return <View onClick={handleSearch}>搜索</View>;
+              }
+            }}
+          </SearchBar>
+          <NoticeBar
+            class='notice-bar'
+            wrapable
+            background="`rgba(251, 248, 220, 1)`"
+            color="`#D9500B`"
+          >
+            <View>
+              {this.configState.config.community}
             </View>
-          ) : (
-            listData.length ? (
-              <View class='px-3'>
-                <Cell class='d-flex flex-column'>
-                  <View class='mb-2 text-wrap'>共<Text>{listData.length}</Text>条</View>
-                  <Table columns={columns} data={listData}></Table>
-                </Cell>
+          </NoticeBar>
+
+          {
+            loading ? (
+              <View class='d-flex flex-column align-items-center' style={{
+                marginTop: Taro.pxTransform(50)
+              }}>
+                <nut-icon name="loading1" class="nut-icon-am-rotate nut-icon-am-infinite"></nut-icon>
+                <View class='text-wrap mt-2'>加载中</View>
               </View>
             ) : (
-              <Empty description="无数据"></Empty>
+              listData.length ? (
+                <View class='px-3'>
+                  <Cell class='d-flex flex-column'>
+                    <View class='mb-2 text-wrap'>共<Text>{listData.length}</Text>条</View>
+                    <Table columns={columns} data={listData}></Table>
+                  </Cell>
+                </View>
+              ) : (
+                <Empty description="无数据"></Empty>
+              )
             )
-          )
-        }
-        <View class='bottom-bar px-3 safe-area-inset-bottom' style={{boxSizing: 'border-box'}}>
-          <Button block type='info' size='large' plain icon='share' {...{
-            openType: 'share'
-          }}>分享好友</Button>
+          }
+          <View class='bottom-bar px-3' style={this.safeAreaStyle}>
+            <Button block type='info' size='large' plain icon='share' {...{
+              openType: 'share'
+            }}>分享好友</Button>
+          </View>
         </View>
-      </View>
+      ): (
+        <View class='page d-flex justify-content-center align-items-center'>
+          功能移除
+        </View>
+      )
     );
   }
 });

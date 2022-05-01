@@ -5,7 +5,7 @@ export interface ConfigSchema {
   notice: string;
   community: string;
   share: string;
-  map: boolean;
+  version: string;
   [key:string]: any;
 }
 
@@ -20,9 +20,17 @@ export const useConfigStore = defineStore('config', {
         notice: '',
         community: '',
         share: '',
-        map: false
+        map: false,
+        version: ''
       }
     };
+  },
+
+  getters: {
+    isNoExamine () {
+      console.log(this.config, process.env.APP_VERSION);
+      return this.config.version >= process.env.APP_VERSION!;
+    }
   },
 
   actions: {

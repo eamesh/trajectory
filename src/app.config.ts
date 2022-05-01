@@ -4,7 +4,8 @@ export default defineAppConfig({
     'pages/main/me/index',
     'pages/funcs/map/index',
     'pages/funcs/community/index',
-    'pages/question/index'
+    'pages/question/index',
+    'pages/funcs/demo/index'
   ],
   window: {
     backgroundColor: '#f1f1f1',

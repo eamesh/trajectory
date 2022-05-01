@@ -1,4 +1,9 @@
 import path from 'path';
+import dotenv from 'dotenv';
+import { expand } from 'dotenv-expand';
+
+const envConfig = dotenv.config();
+expand(envConfig);
 
 const config = {
   projectName: 'trajectory',
@@ -86,7 +91,11 @@ const config = {
   },
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
-  }
+  },
+  env: Object.keys(envConfig.parsed).reduce((item, key) => {
+    item[key] = JSON.stringify(envConfig.parsed[key]);
+    return item;
+  }, {})
 };
 
 module.exports = function (merge) {

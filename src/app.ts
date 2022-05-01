@@ -34,6 +34,7 @@ const App = createApp({
 
   async onShow (options) {
     Taro.cloud.init();
+    console.log(process.env.APP_VERSION);
     try {
       const openid = Taro.getStorageSync(USER_OPENID);
       if (!openid) {

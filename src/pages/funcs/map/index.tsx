@@ -11,7 +11,7 @@ import Marker from '@/assets/images/marker.png';
 
 import './style.scss';
 import { shareParams } from '@/utils';
-import { useConfigStore } from '@/stores/config';
+import { useExamine } from '@/hooks/examine';
 
 const chooseLocation = requirePlugin('chooseLocation');
 
@@ -39,7 +39,10 @@ export default defineComponent({
     } = useData();
 
     const currentMarkerId = ref();
-    const useConfig = useConfigStore();
+    const {
+      isNoExamine,
+      useConfig
+    } = useExamine();
 
     handleGetLocation();
 
@@ -176,7 +179,8 @@ export default defineComponent({
       handleClickMarker,
       mapCircle,
       handleSubscribeMessage,
-      useConfig
+      useConfig,
+      isNoExamine,
     };
   },
 
@@ -221,11 +225,11 @@ export default defineComponent({
       handleClickMarker,
       mapCircle,
       handleSubscribeMessage,
-      useConfig
+      isNoExamine
     } = this;
 
     return (
-      useConfig.config.map ? (
+      isNoExamine ? (
         <View class='page page-map'>
           <nut-toast msg={toastData.msg} v-model:visible={toastData.show} type={toastData.type}  cover={toastData.cover} />
           <View class='location'>
