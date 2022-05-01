@@ -87,8 +87,8 @@
 <a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/04.png"><img src="./resource/04.png" width="200"></a>
 
 ## 审核版本展示
-<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png"><img src="./resource/05.png" width="200"></a>
-<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png"><img src="./resource/06.png" width="200"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/05.png"><img src="./resource/05.png" width="200"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/06.png"><img src="./resource/06.png" width="200"></a>
 
 
 > 开源项目，请勿用于违法活动。任何相关法律问题与本人无关
