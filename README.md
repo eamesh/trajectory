@@ -25,7 +25,8 @@ yarn // 安装
 yarn dev:weapp // 开发环境
 yarn build:weapp // 构建生产环境版本
 ```
-<code>.env</code> 中的 <code>APP_VERSION</code> 根据自己版本号配置
+<code>.env</code> 中的 <code>APP_VERSION</code> 根据自己版本号配置  
+> ps: 不要忘记同步云函数目录 <code>cloud/functions</code> 和创建[微信云数据库记录结构](#微信云数据库记录结构)
 
 ## 过审 (有认证资质可以忽略)
 
@@ -86,7 +87,7 @@ yarn build:weapp // 构建生产环境版本
 <code>user</code>：用户
 
 ```
-  // 微信用户信息
+  // 微信用户信息会自动创建
 ```
 
 
