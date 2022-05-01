@@ -11,6 +11,7 @@ import Marker from '@/assets/images/marker.png';
 
 import './style.scss';
 import { shareParams } from '@/utils';
+import { useConfigStore } from '@/stores/config';
 
 const chooseLocation = requirePlugin('chooseLocation');
 
@@ -38,6 +39,7 @@ export default defineComponent({
     } = useData();
 
     const currentMarkerId = ref();
+    const useConfig = useConfigStore();
 
     handleGetLocation();
 
@@ -173,7 +175,8 @@ export default defineComponent({
       nearDiagnosis: nearDiagnosisRef,
       handleClickMarker,
       mapCircle,
-      handleSubscribeMessage
+      handleSubscribeMessage,
+      useConfig
     };
   },
 
@@ -217,7 +220,8 @@ export default defineComponent({
       nearDiagnosis,
       handleClickMarker,
       mapCircle,
-      handleSubscribeMessage
+      handleSubscribeMessage,
+      useConfig
     } = this;
 
     return (
@@ -226,18 +230,22 @@ export default defineComponent({
         <View class='location'>
           <nut-icon onClick={handleGetLocation} color='#fff' class='location' name='location2' />
         </View>
-        <Map
-          id='map'
-          class='map'
-          showLocation
-          latitude={lodationData.latitude}
-          longitude={lodationData.longitude}
-          markers={markers}
-          style={mapStyle}
-          scale='13'
-          // onMarkertap={handleClickMarker}
-          circles={mapCircle}
-        ></Map>
+        {
+          useConfig.config.map ? (
+            <Map
+              id='map'
+              class='map'
+              showLocation
+              latitude={lodationData.latitude}
+              longitude={lodationData.longitude}
+              markers={markers}
+              style={mapStyle}
+              scale='12'
+              // onMarkertap={handleClickMarker}
+              circles={mapCircle}
+            ></Map>
+          ) : null
+        }
         <View class='d-flex flex-column page-map__container' style={containerHeight}>
           <nut-row gutter={12} class='py-3 page-map__container-header'>
             <nut-col span={12}>

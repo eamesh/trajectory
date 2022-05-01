@@ -5,6 +5,7 @@ export interface ConfigSchema {
   notice: string;
   community: string;
   share: string;
+  map: boolean;
   [key:string]: any;
 }
 
@@ -18,7 +19,8 @@ export const useConfigStore = defineStore('config', {
       config: {
         notice: '',
         community: '',
-        share: ''
+        share: '',
+        map: false
       }
     };
   },
