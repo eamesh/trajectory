@@ -15,12 +15,11 @@
 
 附近确诊轨迹（济南确诊轨迹，封控、管控小区查询） 
 
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/resource/qrcode.jpg"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/qrcode.jpg"></a>
 
 ## 展示
 
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/resource/01.png" width="240"></a>
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/resource/02.png" width="240"></a>
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/resource/03.png" width="240"></a>
-<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/resource/04.png" width="240"></a>
-
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png" width="240"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/02.png" width="240"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/03.png" width="240"></a>
+<a href="https://github.com/eamesh/trajectory/"><img src="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/04.png" width="240"></a>
