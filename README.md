@@ -63,14 +63,14 @@
 
 附近确诊轨迹（济南确诊轨迹，封控、管控小区查询） 
 
-<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/qrcode.jpg" target="_blank"><img src="./resource/qrcode.jpg"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/qrcode.jpg"><img src="./resource/qrcode.jpg"></a>
 
 ## 展示
 
-<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png" target="_blank"><img src="./resource/01.png" width="200"></a>
-<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/02.png" target="_blank"><img src="./resource/02.png" width="200"></a>
-<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/03.png" target="_blank"><img src="./resource/03.png" width="200"></a>
-<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/04.png" target="_blank"><img src="./resource/04.png" width="200"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/01.png"><img src="./resource/01.png" width="200"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/02.png"><img src="./resource/02.png" width="200"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/03.png"><img src="./resource/03.png" width="200"></a>
+<a href="https://raw.githubusercontent.com/eamesh/trajectory/dev/resource/04.png"><img src="./resource/04.png" width="200"></a>
 
 > 开源项目，请勿用于违法活动。任何相关法律问题与本人无关
 
